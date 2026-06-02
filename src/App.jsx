@@ -9,6 +9,9 @@ export default function App() {
   const [selectedFile, setSelectedFile] = useState(null)
   const [jobOffer, setJobOffer] = useState("")
   const [analysisResult, setAnalysisResult] = useState(null)
+  const matchScore = analysisResult
+  ? analysisResult.match(/\d+/)?.[0] || 0
+  : 0
 
   const [analyzing, setAnalyzing] = useState(false)
   const [generatingCV, setGeneratingCV] = useState(false)
@@ -251,7 +254,39 @@ const analyzeResume = async () => {
                   placeholder="Paste the job offer link or description here..."
                   className="w-full h-40 p-4 rounded-2xl bg-black/30 border border-white/10 text-white placeholder-gray-500 resize-none focus:outline-none focus:border-cyan-400 transition-all duration-300"
                 />
+                <div className="mt-6 space-y-4">
+               <button
+                onClick={analyzeResume}
+                disabled={analyzing}
+                className={`w-full py-4 rounded-2xl font-bold text-lg transition-all duration-300
+                ${
+                  analyzing
+                    ? "opacity-50 cursor-not-allowed bg-gray-600"
+                    : "bg-gradient-to-r from-cyan-500 to-purple-500 hover:scale-[1.02]"
+                }`}
+              >
+                {analyzing
+                  ? "🔍 Analyzing Resume..."
+                  : "Analyze Resume Match ✨"}
+              </button>
+
+              <button
+                onClick={generateResume}
+                disabled={generatingCV || !analysisResult}
+                className={`w-full py-4 rounded-2xl font-bold text-lg transition-all duration-300
+                ${
+                  generatingCV || !analysisResult
+                    ? "opacity-50 cursor-not-allowed bg-gray-700"
+                    : "border border-white/10 bg-white/5 hover:bg-white/10"
+                }`}
+              >
+                {generatingCV
+                  ? "📄 Generating Optimized CV..."
+                  : "Generate Optimized CV 🚀"}
+              </button>
+            </div>
               </div>
+              
             </div>
 
             {selectedFile && (
@@ -276,56 +311,48 @@ const analyzeResume = async () => {
               </div>
             )}
 
-            {/* Fake Analysis */}
+           
             <div className="mt-8 space-y-4">
               {!analyzing && selectedFile && jobOffer && (
                 <div className="p-4 rounded-2xl bg-green-500/10 border border-green-500/20">
                   <p className="text-green-300 font-medium">
                     Resume and job offer ready for AI processing.
                   </p>
-                  {analysisResult && (
-                    <div className="mt-6 p-6 rounded-2xl bg-black/30 border border-cyan-500/20">
+                 {analysisResult && (
+                  <div className="space-y-4">
+
+                    <div className="p-5 rounded-2xl bg-black/30 border border-white/10">
+                      <div className="flex justify-between mb-2">
+                        <p className="text-gray-300">Job Match Score</p>
+                        <p className="text-cyan-400 font-bold">
+                          {matchScore}%
+                        </p>
+                      </div>
+
+                      <div className="w-full h-3 rounded-full bg-white/10 overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full transition-all duration-700"
+                          style={{ width: `${matchScore}%` }}
+                        ></div>
+                      </div>
+                    </div>
+
+                    <div className="p-6 rounded-2xl bg-black/30 border border-cyan-500/20">
                       <h3 className="text-xl font-bold text-cyan-300 mb-4">
                         AI Analysis Result
                       </h3>
 
-                      <div className="text-gray-300 whitespace-pre-wrap">
+                      <div className="text-gray-300 whitespace-pre-wrap leading-relaxed">
                         {analysisResult}
                       </div>
                     </div>
-                  )}
-                </div>
-              )}
-              {analysisResult && (
-                <div className="p-6 rounded-2xl bg-black/30 border border-cyan-500/20">
-                  <h3 className="text-xl font-bold text-cyan-300 mb-4">
-                    AI Analysis Result
-                  </h3>
 
-                  <div className="text-gray-300 whitespace-pre-wrap leading-relaxed">
-                    {analysisResult}
                   </div>
+                )}
                 </div>
               )}
-
-              <div className="space-y-4">
-              <button
-                onClick={analyzeResume}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-500 font-bold text-lg hover:scale-[1.02] transition-all duration-300 shadow-xl shadow-cyan-500/20"
-              >
-                Analyze Resume Match ✨
-              </button>
-
-              <button
-                onClick={generateResume}
-                disabled={!analysisResult || generatingCV}
-                className="w-full py-4 rounded-2xl border border-white/10 bg-white/5 font-bold text-lg hover:bg-white/10 transition-all duration-300"
-              >
-                {generatingCV
-                  ? "📄 Generating CV..."
-                  : "Generate Optimized CV 🚀"}
-              </button>
-            </div>
+              
+        
             </div>
           </div>
         </div>
