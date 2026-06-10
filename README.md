@@ -1,16 +1,92 @@
-# React + Vite
+# AI Job Agent - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend de AI Job Agent desarrollado con React y TailwindCSS.
 
-Currently, two official plugins are available:
+Esta aplicación permite a los usuarios:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* Subir un CV en formato PDF.
+* Ingresar una oferta laboral.
+* Analizar la compatibilidad entre ambos.
+* Generar un CV optimizado mediante Inteligencia Artificial.
+* Descargar el nuevo CV generado.
 
-## React Compiler
+## Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* React
+* Vite
+* Axios
+* TailwindCSS
 
-## Expanding the ESLint configuration
+## Instalación
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Clonar el repositorio:
+
+```bash
+git clone https://github.com/cjhojan416/frontend
+```
+
+Ingresar al proyecto:
+
+```bash
+cd frontend
+```
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+Ejecutar entorno de desarrollo:
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en:
+
+```text
+http://localhost:5173
+```
+
+## Variables de configuración
+
+Modificar la URL del backend según el entorno:
+
+```javascript
+const API_URL = "http://localhost:8000";
+```
+
+## Funcionalidades
+
+### Carga de CV
+
+Permite seleccionar y subir archivos PDF.
+
+### Análisis ATS
+
+Compara el CV con una oferta laboral y muestra:
+
+* Coincidencias encontradas.
+* Habilidades relevantes.
+* Oportunidades de mejora.
+
+### Generación de CV
+
+Solicita al backend la creación de una versión optimizada del currículum.
+
+### Descarga PDF
+
+Permite descargar el nuevo CV generado automáticamente.
+
+## Próximas mejoras
+
+* Historial de análisis.
+* Modo oscuro.
+* Dashboard de usuario.
+* Visualización previa del CV generado.
+* Mejoras en la experiencia de usuario.
+
+## Autor
+
+Jhojan Cardona
