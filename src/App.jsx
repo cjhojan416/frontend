@@ -1,11 +1,12 @@
 import { useRef, useState } from "react"
 import axios from "axios"
+import API from "./services/api";
 
 
 export default function App() {
 
   const fileInputRef = useRef(null)
-
+  const [loading, setLoading] = useState(false) 
   const [selectedFile, setSelectedFile] = useState(null)
   const [jobOffer, setJobOffer] = useState("")
   const [analysisResult, setAnalysisResult] = useState(null)
@@ -48,8 +49,8 @@ const openFileSelector = () => {
     formData.append("file", selectedFile)
     formData.append("job_description", jobOffer)
 
-    const response = await axios.post(
-      "http://127.0.0.1:8000/generate-cv",
+    const response = await API.post(
+      "/generate-cv",
       formData,
       {
         responseType: "blob",
@@ -94,8 +95,8 @@ const analyzeResume = async () => {
     formData.append("file", selectedFile)
     formData.append("job_description", jobOffer)
 
-    const response = await axios.post(
-      "http://127.0.0.1:8000/analyze-match",
+    const response = await API.post(
+      "/analyze-match",
       formData,
       {
         headers: {
